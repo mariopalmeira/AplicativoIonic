@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Endereco</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Escolha um endereço: </h3>
+  <ion-card *ngFor="let endereco of enderecos; let i = index" (click)="escolherPagamento(endereco);"> 
+    <ion-card-header>
+      {{endereco.logradouro}}, {{endereco.numero}}
+    </ion-card-header>
+    <ion-card-content>
+      {{endereco.logradouro}}, {{endereco.numero}} - {{endereco.bairro}}, {{endereco.cidade.nome}} - {{endereco.cidade.estado.sigla}}, {{endereco.cep}}
+    </ion-card-content>
+  </ion-card>
+  <button ion-button color="primary" rounded outline>Novo endereço <ion-icon name="add-circle"></ion-icon></button>
+</ion-content>

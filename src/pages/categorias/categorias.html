@@ -7,9 +7,12 @@
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *ngFor="let item of items"> 
+    <!--*ngFor para iterar pelo items, que deve ter o mesmo nome que está no controlador-->
+    <button ion-item (click)="listaProdutosPorCategoria(item.id);" *ngFor="let item of items"> 
       <ion-thumbnail item-start></ion-thumbnail>
+      <!--Interpolação do angular para dados da api com o front-->
       <img src="assets/imgs/{{item.id}}.png">
+      <!--Interpolação do angular para dados da api com o front-->
       <h2>{{item.nome}}</h2>
     </button>
   </ion-list>

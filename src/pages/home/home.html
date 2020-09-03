@@ -8,14 +8,16 @@
   <h2 >Bem vindo a NASA</h2>
   <form>
     <ion-item>
-      <ion-label color="primary" type="email" floating>E-mail</ion-label>
-      <ion-input></ion-input>
+      <!--Binding de elemento html [] e evento () para mandar os dados do formulário e o atributo name-->
+      <ion-label color="primary" floating>E-mail</ion-label>
+      <ion-input [(ngModel)]="credenciais.email" name="email" type="email" ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" type="password" floating>Senha</ion-label>
-      <ion-input></ion-input>
+      <!--Binding de elemento html [] e evento () para mandar os dados do formulário e o atributo name-->
+      <ion-label color="primary" floating>Senha</ion-label>
+      <ion-input  [(ngModel)]="credenciais.senha" name="senha" type="text" ></ion-input>
     </ion-item>
     <button ion-button block (click)="login()">Login</button>
   </form>
-  <button ion-button block outline>Registre-se</button>
+  <button ion-button block outline (click)="cadastrar()">Cadastre-se</button>
 </ion-content>

@@ -1,0 +1,16 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Detalhes do produto</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-thumbnail item-start></ion-thumbnail>
+  <!--Interpolação do angular para dados da api com o front-->
+  <img src="assets/imgs/produto{{produto?.id}}.png">
+  <!--Interpolação do angular para dados da api com o front-->
+  <h3>{{produto?.nome}}</h3>
+  <h5>{{produto?.preco | currency:"BRL":true:"1.2"}}</h5>
+  <button ion-button block (click)="adicionarAoCarrinho(produto);">Adicionar ao carrinho <ion-icon name="cart"></ion-icon></button>
+</ion-content>

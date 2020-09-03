@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage, MenuController } from 'ionic-angular';
+import { CredenciaisDTO } from '../../models/credenciais.dto';
+import { AuthService } from '../../services/auth.service';
+import { StorageService } from '../../services/storage.service';
 
 @IonicPage()
 @Component({
@@ -8,7 +11,12 @@ import { NavController, IonicPage, MenuController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public menu: MenuController) {
+  credenciais : CredenciaisDTO = {
+    email:"",
+    senha:""
+  }
+
+  constructor(public navCtrl: NavController, public menu: MenuController, public auth: AuthService) {
   }
 
   //Pertence ao ciclo de vida dos eventos do ionic
@@ -21,7 +29,17 @@ export class HomePage {
     this.menu.swipeEnable(true);
   }
 
-  login(){
-    this.navCtrl.setRoot('CategoriasPage');
+  login(){ 
+    this.auth.authenticate(this.credenciais)
+    .subscribe(response => {
+      this.auth.successfulLogin(response.headers.get('Authorization')),
+      this.navCtrl.setRoot('CategoriasPage')  
+    },
+    error => {console.log('ERRO!')});
+  }
+
+  cadastrar(){
+    
+    this.navCtrl.push('RegistroPage');
   }
 }

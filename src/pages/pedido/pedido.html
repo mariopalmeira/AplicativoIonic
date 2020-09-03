@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Pedido</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<div>
+  <ion-card>
+    <ion-card-header>
+    <ion-icon name="person"></ion-icon> Entrega para <b>{{cliente?.nome}}</b>
+    </ion-card-header>
+    <ion-card-content>
+      {{cliente?.nome}}, o email que temos para contato é: {{cliente?.email}}
+    </ion-card-content>
+  </ion-card>
+</div>
+<div>
+  <ion-card>
+    <ion-card-header>
+    <ion-icon name="pin"></ion-icon> Em <b>{{endereco?.logradouro}}, {{endereco?.numero}}</b>
+    </ion-card-header>
+    <ion-card-content>
+      {{endereco?.logradouro}}, {{endereco?.numero}} - {{endereco?.bairro}}, {{endereco?.cidade.nome}} - {{endereco?.cidade.estado.sigla}}, {{endereco?.cep}}
+    </ion-card-content>
+  </ion-card>
+</div>
+<div>
+  <ion-card>
+    <ion-card-header>
+    <h2><ion-icon name="cart"></ion-icon> São esses os produtos: </h2>
+    </ion-card-header>
+    <ion-card-content>
+    <ion-list>
+    <div ion-item *ngFor="let item of carrinho"> 
+      <div>
+        <h2><b>{{item.quantidade}} x</b></h2>
+        <!--Interpolação do angular para dados da api com o front-->
+        <img src="assets/imgs/produto{{item.produto.id}}.png">
+        <!--Interpolação do angular para dados da api com o front-->
+        <h2>{{item.produto.nome}}</h2>
+        <h4>{{item.produto.preco | currency:"BRL":true:"1.2"}}</h4>
+      </div>
+    </div>
+    </ion-list>
+    <div>
+        Total:
+        <h2><b>{{totalCarrinho | currency:"BRL":true:"1.2"}}</b></h2>
+    </div>
+  </ion-card-content>
+</ion-card>    
+</div>
+<div>
+  <ion-card> 
+    <ion-card-header>
+      <h2><ion-icon name="logo-usd"></ion-icon> E você vai pagar com <b>{{textoTipoPagamento}}</b></h2>
+    </ion-card-header>
+    <ion-card-content>
+      <b>{{totalCarrinho | currency:"BRL":true:"1.2"}}</b> {{textoPagamento}} 
+    </ion-card-content>
+  </ion-card>
+</div>
+<div>
+  <button ion-button color="secondary" (click)="confirmarPedido();" icon-end full>Tudo certo <ion-icon name="checkmark"></ion-icon></button>
+  <button ion-button color="danger" (click)="conferirPedido();" icon-end full>Ops, quero rever<ion-icon name="help-circle"></ion-icon></button>
+</div>
+</ion-content>

@@ -10,6 +10,7 @@ import { CategoriaDTO } from '../../models/categoria.dto';
 })
 export class CategoriasPage {
 
+  //Variável coleção CategoriaDTO
   items : CategoriaDTO[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public categoriaService:CategoriaService) {
@@ -23,6 +24,11 @@ export class CategoriasPage {
       response => {this.items = response}, 
       error => {console.log(error)}
     );
+  }
+
+  listaProdutosPorCategoria(id : string){
+    //Navegar entre páginas e passar parâmetros
+    this.navCtrl.push('ProdutoPage', {id_categoria: id});
   }
 
 }

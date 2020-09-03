@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Produtos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="produtos != 0;else semProdutos">
+    <ion-list>
+      <!--*ngFor para iterar pelo items, que deve ter o mesmo nome que está no controlador-->
+      <button ion-item *ngFor="let produto of produtos" (click)="produtoDetalhe(produto.id);"> 
+        <ion-thumbnail item-start></ion-thumbnail>
+        <!--Interpolação do angular para dados da api com o front-->
+        <img src="assets/imgs/produto{{produto.id}}.png">
+        <!--Interpolação do angular para dados da api com o front-->
+        <h2>{{produto.nome}}</h2>
+        <h4>{{produto.preco | currency:"BRL":true:"1.2"}}</h4>
+      </button>
+    </ion-list>
+  </div>
+  <ng-template #semProdutos><h6>Essa categoria ainda não tem produtos</h6></ng-template>  
+</ion-content>

@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Registro</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<h1>Embarque<span><h4>e aproveite as ofertas em autopeças!</h4></span></h1>
+
+<form [formGroup]="formGroup" (ngSubmit)="registrarCliente(); $event.preventDefault()">
+  <ion-item>
+    <ion-label color="primary" floating>Nome</ion-label>
+    <ion-input formControlName="nome" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Email</ion-label>
+    <ion-input formControlName="email" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label>Pessoa</ion-label>
+    <ion-select formControlName="tipo">
+      <ion-option selected value="1">Física</ion-option>
+      <ion-option value="2">Jurídica</ion-option>
+    </ion-select>  
+  </ion-item>
+  <p *ngIf="formGroup.controls.tipo.dirty && formGroup.controls.tipo.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>CPF ou CNPJ</ion-label>
+    <ion-input formControlName="cpfOuCnpj" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.cpfOuCnpj.dirty && formGroup.controls.cpfOuCnpj.errors">Valor inválido</p> 
+  <ion-item>
+    <ion-label color="primary" floating>Senha</ion-label>
+    <ion-input formControlName="senha" type="password"></ion-input>
+  </ion-item> 
+  <p *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Logradouro</ion-label>
+    <ion-input formControlName="logradouro" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.logradouro.dirty && formGroup.controls.logradouro.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Número</ion-label>
+    <ion-input formControlName="numero" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.numero.dirty && formGroup.controls.numero.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Complemento</ion-label>
+    <ion-input formControlName="complemento" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.complemento.dirty && formGroup.controls.complemento.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Bairro</ion-label>
+    <ion-input formControlName="bairro" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.bairro.dirty && formGroup.controls.bairro.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>CEP</ion-label>
+    <ion-input formControlName="cep" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Telefone</ion-label>
+    <ion-input formControlName="telefoneUm" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.telefoneUm.dirty && formGroup.controls.telefoneUm.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Telefone 2</ion-label>
+    <ion-input formControlName="telefoneDois" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.telefoneDois.dirty && formGroup.controls.telefoneDois.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label color="primary" floating>Telefone 3</ion-label>
+    <ion-input formControlName="telefoneTres" type="text"></ion-input>
+  </ion-item>
+  <p *ngIf="formGroup.controls.telefoneTres.dirty && formGroup.controls.telefoneTres.errors">Valor inválido</p>
+  <ion-item>
+    <ion-label>Estado</ion-label>
+    <ion-select formControlName="estadoId" (ionChange)="carregaCidades()">
+      <ion-option *ngFor="let estado of estados; first as primeiro" [value]="estado.id" [selected]="primeiro">{{estado.nome}} - {{estado.sigla}}</ion-option>
+    </ion-select>  
+  </ion-item> 
+  <p *ngIf="formGroup.controls.estadoId.dirty && formGroup.controls.estadoId.errors">Valor inválido</p> 
+  <ion-item>
+    <ion-label>Cidade</ion-label>
+    <ion-select formControlName="cidadeId">
+      <ion-option *ngFor="let cidade of cidades" [value]="cidade.id">{{cidade.nome}}</ion-option>
+    </ion-select>  
+  </ion-item>  
+  <p *ngIf="formGroup.controls.cidadeId.dirty && formGroup.controls.cidadeId.errors">Valor inválido</p>
+  <button ion-button block type="submit" [disabled]="formGroup.invalid">Lançar</button>
+</form>
+</ion-content>

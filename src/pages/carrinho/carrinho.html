@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    <ion-title>Meu Carrinho</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="carrinho != 0;else carrinhoVazio">
+    <button ion-button color="secondary" round outline block (click)="continuarComprando();">Continuar comprando <ion-icon name="cart"></ion-icon></button>
+    <ion-list>
+      <!--*ngFor para iterar pelo items, que deve ter o mesmo nome que está no controlador-->
+      <div ion-item *ngFor="let item of carrinho"> 
+        <div>
+          <h2><b>{{item.quantidade}} x</b></h2>
+          <!--Interpolação do angular para dados da api com o front-->
+          <img src="assets/imgs/produto{{item.produto.id}}.png" width="200" height="200">
+          <!--Interpolação do angular para dados da api com o front-->
+          <h2>{{item.produto.nome}}</h2>
+          <h4>{{item.produto.preco | currency:"BRL":true:"1.2"}}</h4>
+        </div>
+        <div>
+          <button ion-button small color="dark" outline icon-only (click)="incrementaProdutoCarrinho(item.produto);"><ion-icon name="add"></ion-icon></button>
+          <button ion-button small color="dark" outline icon-only (click)="decrementaProdutoCarrinho(item.produto);"><ion-icon name="remove"></ion-icon></button>
+          <button ion-button small color="danger" outline icon-only (click)="removeProdutoCarrinho(item.produto);"><ion-icon name="trash"></ion-icon></button>
+        </div>
+      </div>
+    </ion-list>
+    <div>
+        Total:
+        <h2><b>{{totalCarrinho | currency:"BRL":true:"1.2"}}</b></h2>
+        <button ion-button color="secondary" (click)="confirmarEndereco();">Confirmar endereço de entrega</button>
+    </div>
+  </div>
+  <ng-template #carrinhoVazio><h6>Seu carrinho está vazio! :(</h6></ng-template>  
+</ion-content>

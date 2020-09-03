@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Pagamento</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Escolha uma forma de pagamento: </h3>
+  <ion-card (click)="pagar('pagamentoBoleto', null);"> 
+    <ion-card-header>
+      <h3>Boleto bancário</h3>
+    </ion-card-header>
+    <ion-card-content>
+      1 x {{totalCarrinho | currency:"BRL":true:"1.2"}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card> 
+    <ion-card-header>
+      <h3>Cartão</h3>
+    </ion-card-header>
+    <ion-card-content>
+      {{totalCarrinho | currency:"BRL":true:"1.2"}} em 
+      <ion-list radio-group>  
+        <ion-item *ngFor="let parcela of parcelamento;">
+          <ion-label>{{parcela.vez}}x de {{parcela.valor  | currency:"BRL":true:"1.2"}}</ion-label>
+          <ion-radio value="{{parcela.vez}}" (ionSelect)="pagar('pagamentoCartao', parcela.vez)"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
