@@ -5,13 +5,16 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="produtos != 0;else semProdutos">
     <ion-list>
       <!--*ngFor para iterar pelo items, que deve ter o mesmo nome que está no controlador-->
       <button ion-item *ngFor="let produto of produtos" (click)="produtoDetalhe(produto.id);"> 
         <ion-thumbnail item-start></ion-thumbnail>
         <!--Interpolação do angular para dados da api com o front-->
-        <img src="assets/imgs/produto{{produto.id}}.png">
+        <img src="assets/imgs/produto{{produto.id}}.png" width="200" height="200">
         <!--Interpolação do angular para dados da api com o front-->
         <h2>{{produto.nome}}</h2>
         <h4>{{produto.preco | currency:"BRL":true:"1.2"}}</h4>

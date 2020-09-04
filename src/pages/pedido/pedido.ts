@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { PedidoDTO } from '../../models/pedido.dto';
 import { ItemCarrinho } from '../../models/item-carrinho';
 import { CarrinhoService } from '../../services/domain/carrinho.service';
@@ -27,7 +27,7 @@ export class PedidoPage {
   textoTipoPagamento : string;
   textoPagamento : string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public carrinhoService: CarrinhoService, public storageService : StorageService, public clienteService : ClienteService, public pedidoService : PedidoService, public alertController : AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public carrinhoService: CarrinhoService, public storageService : StorageService, public clienteService : ClienteService, public pedidoService : PedidoService, public alertController : AlertController, public loadingController : LoadingController) {
   }
 
   ionViewDidLoad() {
@@ -72,15 +72,17 @@ export class PedidoPage {
 
   confirmarPedido(){
     this.pedido.itemPedido = this.carrinho;
+    let loader = this.loading();
     this.pedidoService.inserirPedido(this.pedido)
-    .subscribe(response => {this.pedidoInserido()}, error => {this.pedidoNaoInserido()});
+    .subscribe(response => {console.log(response.headers.get('location')), loader.dismiss(), this.pedidoInserido()}, error => {loader.dismiss(),this.pedidoNaoInserido()});
   }
 
   conferirPedido(){
-    this.navCtrl.setRoot('CarrinhoPage');
+    this.navCtrl.setRoot('CarrinhoPage', {'conferir': true});
   }
 
   pedidoInserido(){
+    this.carrinhoService.criarCarrinho();
     let alert = this.alertController.create({
       title: "Pedido recebido! Obrigado por comprar com a NASA!",
       subTitle: "Pronto! Agora é só acompanhar o status da sua compra pelos nossos emails.",
@@ -98,5 +100,13 @@ export class PedidoPage {
       buttons:[{text: 'OK', handler:() => {this.navCtrl.setRoot('CarrinhoPage');}}]
     });
     alert.present();
+  }
+
+  loading(){
+    let loading = this.loadingController.create({
+      content: 'Processando seu pedido...'
+    });
+    loading.present();
+    return loading;
   }
 }

@@ -16,6 +16,10 @@ export class ProdutoPage {
   }
 
   ionViewDidLoad() {
+    this.listaProdutosPorCategoria();
+  }
+
+  listaProdutosPorCategoria(){
     //Pegar o parâmetro que veio do categoriapage
     let id = this.navParams.get('id_categoria');
     this.produtoService.listaProdutosPorCategoria(id)
@@ -26,4 +30,10 @@ export class ProdutoPage {
     this.navCtrl.push('ProdutoDetalhePage',{'id_produto':id});
   }
 
+  doRefresh(event) {
+    this.listaProdutosPorCategoria();
+    setTimeout(() => {
+      event.complete();
+    }, 1000);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Item } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Item, ToastController } from 'ionic-angular';
 import { Carrinho } from '../../models/carrinho';
 import { CarrinhoService } from '../../services/domain/carrinho.service';
 import { ItemCarrinho } from '../../models/item-carrinho';
@@ -15,12 +15,16 @@ export class CarrinhoPage {
   carrinho : ItemCarrinho[];
   totalCarrinho : number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public carrinhoService : CarrinhoService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public carrinhoService : CarrinhoService, public toastCtrl : ToastController) {
   }
 
   ionViewDidLoad() {
     this.carrinho = this.carrinhoService.buscaCarrinho().items;
     this.totalCarrinho = this.carrinhoService.totalCarrinho();
+    let conferir = this.navParams.get('conferir');
+    if(conferir){
+      this.avisoConferirPedido();
+    }
   }
 
   incrementaProdutoCarrinho(produto : ProdutoDTO){
@@ -44,5 +48,14 @@ export class CarrinhoPage {
 
   confirmarEndereco(){
     this.navCtrl.push('EnderecoPage');
+  }
+
+  avisoConferirPedido() {
+    let toast = this.toastCtrl.create({
+      message: "Será necessário preencher os dados do pedido novamente.",
+      duration: 4000,
+      position: 'top'
+    }); 
+    toast.present();
   }
 }
